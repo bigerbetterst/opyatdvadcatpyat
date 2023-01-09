@@ -1,0 +1,837 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>LolaShield</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Mouse - Приватный сервер Minecraft.">
+    <meta name="author" content="Mouse">
+
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon and Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#fff">
+    <meta name="msapplication-config" content="assets/favicon/browserconfig.xml">
+
+    <!-- Vendor Styles -->
+    <link rel="stylesheet" media="screen" href="assets/vendor/boxicons/css/boxicons.min.css">
+    <link rel="stylesheet" media="screen" href="assets/vendor/swiper/swiper-bundle.min.css">
+
+    <!-- Main Theme Styles + Bootstrap -->
+    <link rel="stylesheet" href="public/style.css">
+    <link rel="stylesheet" href="assets/css/theme.min.css">
+
+    <!-- Page loading styles -->
+        <style>
+      .page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
+      .dark-mode .page-loading {
+        background-color: #141414;
+      }
+      .page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
+      .page-loading.active > .page-loading-inner {
+        opacity: 1;
+      }
+      .page-loading-inner > span {
+        display: block;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #9397ad;
+      }
+      .dark-mode .page-loading-inner > span {
+        color: #fff;
+        opacity: .6;
+      }
+      .page-spinner {
+        display: inline-block;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        border: .15em solid #b4b7c9;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner .75s linear infinite;
+        animation: spinner .75s linear infinite;
+      }
+      .dark-mode .page-spinner {
+        border-color: rgba(255,255,255,.4);
+        border-right-color: transparent;
+      }
+      @-webkit-keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <!-- Theme mode -->
+    <script>
+      let mode = window.localStorage.getItem('mode'),
+          root = document.getElementsByTagName('html')[0];
+      if (mode !== undefined && mode === 'dark') {
+        root.classList.add('dark-mode');
+      } else {
+        root.classList.remove('dark-mode');
+      }
+    </script>
+
+    <!-- Page loading scripts -->
+    <script>
+      (function () {
+        window.onload = function () {
+          const preloader = document.querySelector('.page-loading');
+          preloader.classList.remove('active');
+          setTimeout(function () {
+            preloader.remove();
+          }, 1000);
+        };
+      })();
+    </script>  
+  </head>
+
+
+  <!-- Body -->
+  <body>
+
+    <!-- Page loading spinner -->
+    <div class="page-loading active">
+      <div class="page-loading-inner">
+        <div class="page-spinner"></div><span>Загрузка</span>
+      </div>
+    </div>
+    <main class="page-wrapper">
+
+
+      <!-- Navbar -->
+      <style>
+
+.navbar-icon {
+
+  width:50px;
+  height:50px;
+  background-color:#e1e1e1;
+  display: none;
+
+}
+
+.dark-mode .navbar-icon {
+
+background-color:#181818;
+display: none;
+
+}
+
+
+.nav-line {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.dark-mode .nav-line {
+  border-bottom: 1px solid #202224;
+}
+
+</style>
+
+
+<header class="navbar navbar-expand-lg navbar-light nav-line">
+  <div class="container">
+    <a href="index.htm" class="navbar-brand">
+      <img src="assets/skyvoxel.png" width="47">
+    </a>
+    <button class="card navbar-toggler ms-auto navbar-icon order-lg-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse2" aria-expanded="false">
+      <span class="navbar-toggler-icon" style="margin-left: 9px; display:none;"></span>
+    </button>
+    <div class="form-check form-switch mode-switch order-lg-2" data-bs-toggle="mode" style="margin-bottom: -3px;margin-left: 30px;">
+      <input type="checkbox" class="form-check-input order-1" id="theme-mode">
+          </div>
+    <nav id="navbarCollapse2" class="collapse navbar-collapse">
+      <hr class="d-lg-none mt-3 mb-2">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="index.htm" class="nav-link">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a target="_blank" href="https://shop.lolashield.fun/" class="nav-link">Магазин</a>
+        </li>
+        <li class="nav-item">
+          <a target="_blank" href="https://wiki.lolashield.fun/" class="nav-link">Вики</a>
+        </li>
+        <li class="nav-item">
+          <a href="#download" class="nav-link">Загрузки</a>
+        </li>
+        <li class="nav-item">
+          <a href="content" class="nav-link">Контент</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  
+
+      <!-- General Info -->
+
+      <style>
+
+.text-main {
+
+color:#3f4552;
+
+}
+
+.dark-mode .text-main {
+  color:#a9a9a9;
+}
+
+.text-1 {
+  color:#000;
+}
+
+.dark-mode .text-1 {
+  color:#000;
+}
+
+.desc-ver {
+  max-width:10rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-bg {
+  z-index: -1;
+}
+
+.font-gradient {
+  font-weight: 700;
+  font-size: 75px;
+  background: linear-gradient(180deg, rgb(0 78 255) 0%, rgba(0,215,255,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.alertbuy-card {
+  background: #d1d1d1;
+    padding: 16px;
+    border-radius: 12px;
+    min-width: 10px;
+    margin-top: -20px;
+    box-shadow: -2px 7px 14px 1px rgb(0 0 0 / 48%);
+    z-index: 1;
+}
+
+.alertbuy-card-text {
+  color: #000;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.alertbuy-card-button {
+  padding: 7px;
+    margin-left: 30px;
+    border: 1px solid #a5a5a5;
+    border-radius: 10px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: 0.1s background-color ease;
+}
+
+.alertbuy-card-button:hover {
+  background: #cfcfcf;
+}
+
+.dark-mode .alertbuy-card {
+  background:#323232;
+}
+
+.dark-mode .alertbuy-card-text {
+  color:#bdbdbd;
+}
+
+.dark-mode .alertbuy-card-button {
+  border:1px solid #626262;
+  background: #4e4e4e;
+  color:#c9c9c9;
+}
+
+.dark-mode .alertbuy-card-button:hover {
+  background: #404040;
+  border: 1px solid #464646;
+}
+
+.icon-alertcard {
+  width: 23px;
+  height: 23px;
+  color: #484848;
+}
+
+.dark-mode .icon-alertcard {
+  color: #bdbdbd;
+}
+
+
+
+.alertinfo-card {
+  background: #d1d1d1;
+    padding: 16px;
+    border-radius: 12px;
+    min-width: 10px;
+    margin-top: -20px;
+}
+
+.alertinfo-card-text {
+  color: #000;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.alertinfo-card-button {
+  padding: 7px;
+    margin-left: 30px;
+    border: 1px solid #a5a5a5;
+    border-radius: 10px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: 0.1s background-color ease;
+}
+
+.alertinfo-card-button:hover {
+  background: #cfcfcf;
+}
+
+.dark-mode .alertinfo-card {
+  background:#262626;
+}
+
+.dark-mode .alertinfo-card-text {
+  color:#bdbdbd;
+}
+
+.dark-mode .alertinfo-card-button {
+  border:1px solid #626262;
+  background: #4e4e4e;
+  color:#c9c9c9;
+}
+
+.dark-mode .alertinfo-card-button:hover {
+  background: #404040;
+  border: 1px solid #464646;
+}
+
+.icon-infocard {
+  width: 23px;
+  height: 23px;
+  color: #484848;
+}
+
+.dark-mode .icon-infocard {
+  color: #bdbdbd;
+}
+
+  </style>
+                
+
+  
+
+
+      <!-- Server Info -->
+      <style>
+
+.border-gray {
+
+border-color:#dbdbdb;
+border-width: 3px;
+
+}
+
+.dark-mode .border-gray {
+border-color:#505050;
+}
+
+.text-main2 {
+
+color:#242424;
+
+}
+
+.dark-mode .text-main2 {
+
+color:#b9b9b9;
+
+
+}
+
+.info-general {
+
+  display: inline-block;
+  margin-bottom: 20px;
+  border-radius: 13px;
+  border: 1px solid #e7e7e7;
+  max-width: 420px;
+  word-wrap:break-word;
+  background: #fdfdfd;
+
+}
+
+.dark-mode .info-general {
+  border: 2px solid #404040;
+  background: #1a1a1a;
+}
+
+.info-general-image {
+
+  display: inline-block;
+  border-radius: 13px;
+  border: 1px solid #e7e7e7;
+  margin-right: 4px;
+  margin-bottom: 5px;
+
+}
+
+.dark-mode .info-general-image {
+  border: 2px solid #404040;
+}
+
+.info-general-image-w {
+  width:45px;
+  padding: 10px;
+}
+
+.info-general-text {
+
+  padding: 5px 10px 5px 10px;
+  font-size: 30px;
+  color: #282828;
+  font-weight: 600;
+
+}
+
+.dark-mode .info-general-text {
+  color:#fff;
+}
+
+  </style>
+
+<style>
+
+.bga-gray {
+
+  background-color: #f3f3f3;
+  color: #fff
+
+}
+
+.dark-mode .bga-gray {
+
+background-color: #1a1a1a;
+color: #fff
+
+}
+
+.text-main3 {
+
+color:#0a0a0a;
+
+}
+
+.dark-mode .text-main3 {
+
+color:#b9b9b9;
+
+
+}
+
+  </style>
+
+
+<style>
+
+.grid_panel {
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 56px;
+  gap: 25px;
+
+}
+
+@media only screen and (max-width: 768px) {
+    .grid_panel {
+        grid-template-columns:1fr;}
+}
+
+.panel:hover {
+
+  background: #f9f9f9;
+  transition: background-color .15s ease;
+
+}
+
+.dark-mode .panel:hover {
+
+background: #323232;
+
+}
+
+
+  </style>
+
+
+
+      <section class="position-relative">
+        <div class="position-relative zindex-4 pt-lg-3 pt-xl-5">
+  
+          <!-- Text -->
+          <div class="container zindex-5 pt-3 pb-4">
+            <div class="row justify-content-center text-center pt-4 pb-sm-2">
+              <div class="col-xl-8 col-lg-9 col-md-10" style="padding-top:1rem; padding-bottom:4rem;">
+                <h1 class="text-main3 mt-3" style="font-weight: 600;">Игроки, которые</h1>
+                <p class="fs-lg text-main3" style="max-width: 40rem; margin-left: auto; margin-right: auto; margin-bottom:60px;">не только играют, но и делают контент.</p>
+
+<div class="grid_panel">
+
+<a href="https://www.youtube.com/@EithXD" class="text-muted" style="text-decoration: none;">
+  <div class="col">
+  <div class="rounded-2 border-0 panel" style="transition: background-color .15s ease;">
+        <div class="pb-3"></div>
+        <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 18px;margin-left: 20px; " src="https://yt3.ggpht.com/YSfBR0Hw2SNgjxzKMW-zceYfvZn6qL6UcJQGWOgcGTIuQR4e3H_DfISwTsrjnTRKVuIBJzeN=s88-c-k-c0x00ffffff-no-rj" width="75">
+
+          <div style="display:auto; flex-direction:column; padding:2px;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: 0px; text-align: left;">EithXD</h5>
+            <p class="card-info" style="text-align: left;">Никнейм в майнкрафт - EithXD<br>Категория - Стримы<br>Платформы:<br>• YouTube</p>
+          </div>
+        </div>
+  </div>
+  </div>
+    </a>
+
+    <a href="https://youtube.com/@mouwyzz" class="text-muted" style="text-decoration: none;">
+  <div class="col">
+  <div class="rounded-2 border-0 panel" style="transition: background-color .15s ease;">
+        <div class="pb-3"></div>
+        <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 18px;margin-left: 20px; " src="https://yt3.ggpht.com/iOKaChLE-o6L8PEc3Rcur6EBxCO5zaPtuEobMCSYtiRG3ibAV46xLN5678gIt3gzfNsfRInMe9o=s88-c-k-c0x00ffffff-no-rj" width="75">
+
+          <div style="display:auto; flex-direction:column; padding:2px;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: 0px; text-align: left;">Mouwyzz</h5>
+            <p class="card-info" style="text-align: left;">Никнейм в майнкрафт - MouwelGG<br>Категория - Видео/Стримы<br>Платформы:<br>• YouTube</p>
+          </div>
+        </div>
+  </div>
+  </div>
+    </a>
+
+    <a href="https://www.youtube.com/@zediban" class="text-muted" style="text-decoration: none;">
+  <div class="col">
+  <div class="rounded-2 border-0 panel" style="transition: background-color .15s ease;">
+        <div class="pb-3"></div>
+        <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 18px;margin-left: 20px; " src="https://yt3.ggpht.com/7aumJRZmXPdGjGEbz_OhnAEbM_0UcTP9qgfxnkkaymj-4I3HNk3E7XiEIbElHaQWWV7sahSIdQ=s88-c-k-c0x00ffffff-no-rj" width="75">
+
+          <div style="display:auto; flex-direction:column; padding:2px;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: 0px; text-align: left;">зедикс</h5>
+            <p class="card-info" style="text-align: left;">Никнейм в майнкрафт - zediksafk<br>Категория - Видео/Стримы<br>Платформы:<br>• YouTube<br>⠀</p>
+          </div>
+        </div>
+  </div>
+  </div>
+    </a>
+
+    <a target="_blank" href="https://www.youtube.com/@qwieftetertcompot" class="text-muted" style="text-decoration: none;">
+  <div class="col">
+  <div class="rounded-2 border-0 panel" style="transition: background-color .15s ease;">
+        <div class="pb-3"></div>
+        <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 18px;margin-left: 20px; " src="https://yt3.ggpht.com/aqqyVBdx7LkFLtWu0k-CP8HXGdP2aC1DIRPmGY1iPsNK3KbiMgpDn-N3M6hq8DyDfkKTH-BCnIs=s88-c-k-c0x00ffffff-no-rj" width="75">
+
+          <div style="display:auto; flex-direction:column; padding:2px;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: 0px; text-align: left;">qwieftetert</h5>
+            <p class="card-info" style="text-align: left;">Никнейм в майнкрафт - qwieftetert<br>Категория - Стримы<br>Платформы:<br>• YouTube<br>• Twitch<p>
+          </div>
+        </div>
+  </div>
+  </div>
+    </a>
+	
+
+	
+
+    <a target="_blank" href="https://www.youtube.com/@lodka8301" class="text-muted" style="text-decoration: none;">
+  <div class="col">
+  <div class="rounded-2 border-0 panel" style="transition: background-color .15s ease;">
+        <div class="pb-3"></div>
+        <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 18px;margin-left: 20px; " src="https://yt3.googleusercontent.com/Y8h7_SYjkOx34pzuQQos2KENJJj5NuwpfSryYqENp9S54Phg4Gglcj_qk0HIZS01rK23Wf6HQA=s88-c-k-c0x00ffffff-no-rj" width="75">
+
+          <div style="display:auto; flex-direction:column; padding:2px;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: 0px; text-align: left;">Lodka</h5>
+            <p class="card-info" style="text-align: left;">Никнейм в майнкрафт - Lodka1337<br>Категория - Стримы<br>Платформы:<br>• YouTube</p>
+          </div>
+        </div>
+  </div>
+  </div>
+    </a>
+
+    <a href="https://www.youtube.com/channel/UCHxseehxIM2TS25Zdv0um_w" class="text-muted" style="text-decoration: none;">
+  <div class="col">
+  <div class="rounded-2 border-0 panel" style="transition: background-color .15s ease;">
+        <div class="pb-3"></div>
+        <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 18px;margin-left: 20px; " src="https://yt3.ggpht.com/63Kj59UYCUFqVotY7B6GWpNezF5QwYIxHD5bd8Ik_Mkubwnme74wQdhQI0kYIEcAlGcLb96DVeU=s88-c-k-c0x00ffffff-no-rj" width="75">
+
+          <div style="display:auto; flex-direction:column; padding:2px;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: 0px; text-align: left;">nikas</h5>
+            <p class="card-info" style="text-align: left;">Никнейм в майнкрафт - NikasBan<br>Категория - какая-то<br>Платформы:<br>• YouTube</p>
+          </div>
+        </div>
+  </div>
+  </div>
+    </a>
+	
+    <a href="https://www.youtube.com/@ZAROSSIU.RUSSIA" class="text-muted" style="text-decoration: none;">
+  <div class="col">
+  <div class="rounded-2 border-0 panel" style="transition: background-color .15s ease;">
+        <div class="pb-3"></div>
+        <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 18px;margin-left: 20px; " src="https://yt3.ggpht.com/H4ytzZA_woUr-aZZYGILsBGfb7o8Yqe73YjJ9sOSmMH--3atNWapVhVv63-DbvJdJApYii_0iA=s88-c-k-c0x00ffffff-no-rj" width="75">
+
+          <div style="display:auto; flex-direction:column; padding:2px;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: 0px; text-align: left;">KnaZI</h5>
+            <p class="card-info" style="text-align: left;">Никнейм в майнкрафт - KnaZI<br>Категория - Видео<br>Платформы:<br>• YouTube</p>
+          </div>
+        </div>
+  </div>
+  </div>
+    </a>
+	
+    <a href="https://www.youtube.com/@lizgub4631/" class="text-muted" style="text-decoration: none;">
+  <div class="col">
+  <div class="rounded-2 border-0 panel" style="transition: background-color .15s ease;">
+        <div class="pb-3"></div>
+        <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 18px;margin-left: 20px; " src="https://yt3.googleusercontent.com/Z4MpTdPJVTQYowZ2jDFMUHOK1mKht7vWhREpF3VGhAC0hVP-ToOtfQN9fTKK5xvtFG_CDakETw=s88-c-k-c0x00ffffff-no-rj" width="75">
+
+          <div style="display:auto; flex-direction:column; padding:2px;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: 0px; text-align: left;">lizgub</h5>
+            <p class="card-info" style="text-align: left;">Никнейм в майнкрафт - Rabbiit000<br>Категория - Видео<br>Платформы:<br>• YouTube</p>
+          </div>
+        </div>
+  </div>
+  </div>
+    </a>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="container zindex-5 pt-3 pb-4">
+            <div class="row justify-content-center text-center pt-4 pb-sm-2">
+              <div class="col-xl-8 col-lg-9 col-md-10" style="padding-top:1rem; padding-bottom:4rem;">
+                <h1 class="text-main3 mt-3" style="font-weight: 600;">Видео недели</h1>
+                <p class="fs-lg text-main3" style="max-width: 40rem; margin-left: auto; margin-right: auto; margin-bottom:60px;">По мнению админа</p>
+				 </div>
+				<iframe src="https://www.youtube.com/watch?v=7kD6vLfMcdo" style="border: 0; width:100%; height:600px;"></iframe>
+ 
+      
+      <style>
+
+.mobile-menu {
+    bottom:0;
+    display: none;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+@media only screen and (max-width: 991px) {
+    .mobile-menu {
+      display: block;
+    }
+  }
+
+.mobile-menu-inside {
+    display:flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 70px;
+    background: #fbfbfb;
+    border-top:1px solid #c9c9c9;
+}
+
+.dark-mode .mobile-menu-inside {
+    background: #222222;
+    border-top: 1px solid #343434;
+}
+
+.mobile-menu-punkt {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack:center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color:transparent;
+    background-color: transparent;
+    outline:0px;
+    border:0;
+    margin:0;
+    user-select:none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, padding-top 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    padding: 0px 12px;
+    max-width: 168px;
+    flex-direction: column;
+    flex:1 1 0%;
+    color:#565252;
+    font-weight: 500;
+}
+
+.dark-mode .mobile-menu-punkt {
+    color:#a1a1a1;
+}
+
+.mobile-menu-punkt:hover{
+    background: #dfdfdf;
+    color:#565252;
+}
+
+.dark-mode .mobile-menu-punkt:hover {
+    background: #363636;
+    color:#b3b3b3;
+}
+
+.mobile-menu-punkt-icon {
+    width:25px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+    </style>
+
+
+<div class="mobile-menu">
+<div class="mobile-menu-inside">
+    <a href="https://shop.lolashield.fun" class="mobile-menu-punkt">
+    <svg xmlns="http://www.w3.org/2000/svg" class="mobile-menu-punkt-icon" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
+</svg>
+<span>Магазин</span>
+</a>
+
+
+    <a href="https://wiki.lolashield.fun" class="mobile-menu-punkt">
+    <svg xmlns="http://www.w3.org/2000/svg" class="mobile-menu-punkt-icon" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path>
+</svg>
+<span>Вики</span>
+        </a>
+
+                    
+                    <a href="#download" class="mobile-menu-punkt">
+    <svg xmlns="http://www.w3.org/2000/svg" class="mobile-menu-punkt-icon" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"></path>
+</svg>
+<span>Загрузки</span>
+</a>
+            
+</div>
+
+</div> 
+    </main>
+
+
+    <style>
+
+.container-mobilef {}
+
+@media only screen and (max-width: 640px) {
+  .container-mobilef {
+  padding-bottom: 100px;
+    }
+  }
+
+  </style>
+
+
+<footer class="footer pt-5 pb-1 pb-lg-1">
+  <hr class="my-1 border border-2 opacity-70">
+      <div class="container container-mobilef pt-lg-4">
+      <div class="card-warraper" style="display: flex; align-items: center;">
+          <img style="margin-right: 14px;margin-bottom: 35px;margin-left: 20px; " src="assets/skyvoxel.png" width="48">
+          <div style="display:auto; flex-direction:column;">
+            <h5 class="card-title" style="font-size:18px; margin-bottom: -1px !important; margin-top:3px;">LolaShield <span class="fs-sm text-muted ms-1" style="font-weight:400;">© 2023</span></h5>
+            <p class="card-info" style="font-size: 14px;margin-top: auto;font-weight: 400;">Вся размещенная информация на сайте не является публичной офертой.</p>
+            <p class="card-info text-muted" style="font-size: 14px;margin-top: -22px;font-weight: 400;">We are in no way affiliated with or endorsed by Mojang, AB. Apple emojis provided by Apple. Apple® is a registered trademark of Apple Inc.</p>
+            <!-- <p class="card-info text-info" style="font-size: 14px;margin-top: -20px;font-weight: 400;">Контакты</p> -->
+          </div>
+        </div>
+      </div>
+    </footer>  
+
+
+    <!-- Back to top button -->
+
+
+    <!-- Vendor Scripts -->
+    <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="assets/vendor/jarallax/dist/jarallax.min.js"></script>
+    <script src="assets/vendor/jarallax/dist/jarallax-element.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main Theme Script -->
+    <script src="assets/js/theme.min.js"></script>
+  </body>
+</html>
